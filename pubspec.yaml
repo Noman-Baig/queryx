@@ -1,0 +1,32 @@
+name: queryx
+description: >
+  A fast, lightweight, production-grade server-state engine for Flutter/Dart.
+  Query, mutation, caching, deduplication, retry, pagination and offline sync —
+  state-management agnostic. Works with Riverpod, GetX, Bloc, Provider, or plain setState.
+version: 0.1.1
+license: MIT
+homepage: https://github.com/your-org/queryx
+repository: https://github.com/your-org/queryx
+issue_tracker: https://github.com/your-org/queryx/issues
+documentation: https://github.com/your-org/queryx#readme
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+
+# NOTE: the core package is intentionally pure Dart. It has zero dependency on
+# Flutter or Dio. Transport, persistence, and UI-binding are all adapters that
+# live in separate sibling packages (queryx_dio, queryx_riverpod, queryx_getx,
+# queryx_persistence) so apps only pull in what they actually use.
+dependencies:
+  meta: ^1.15.0
+
+dev_dependencies:
+  test: ^1.25.0
+  lints: ^5.1.1
+
+topics:
+  - networking
+  - caching
+  - state-management
+  - api
+  - offline
