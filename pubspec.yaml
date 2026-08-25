@@ -5,10 +5,10 @@ description: >
   state-management agnostic. Works with Riverpod, GetX, Bloc, Provider, or plain setState.
 version: 0.1.1
 license: MIT
-homepage: https://github.com/your-org/queryx
-repository: https://github.com/your-org/queryx
-issue_tracker: https://github.com/your-org/queryx/issues
-documentation: https://github.com/your-org/queryx#readme
+homepage: https://github.com/Noman-Baig
+repository: https://github.com/Noman-Baig/queryx
+issue_tracker: https://github.com/Noman-Baig/queryx/issues
+documentation: https://github.com/Noman-Baig/queryx#readme
 
 environment:
   sdk: ">=3.3.0 <4.0.0"
