@@ -121,6 +121,7 @@ class QueryCore<T> {
         return result;
       } catch (e, st) {
         final error = e is QueryError ? e : defaultErrorMapper(e, st);
+
         if (error.type == QueryErrorType.cancelled) {
           entry.isFetching = false;
           entry.isRefreshing = false;
@@ -128,22 +129,35 @@ class QueryCore<T> {
           listenable.notifyListeners();
           rethrow;
         }
+
         if (policy.shouldRetry(error, attempt)) {
           entry.retryCount = attempt + 1;
+
           final delay = policy.delayFor(attempt);
-          _logger.log('QUERY',
-              '${key.id} → retry ${attempt + 1}/${policy.maxRetries} in ${delay.inMilliseconds}ms');
+
+          _logger.log(
+            'QUERY',
+            '${key.id} → retry ${attempt + 1}/${policy.maxRetries} '
+                'in ${delay.inMilliseconds}ms',
+          );
+
           attempt++;
           await Future<void>.delayed(delay);
           continue;
         }
+
         entry.setError(error);
         entry.isFetching = false;
         entry.isRefreshing = false;
         entry.inFlight = null;
         listenable.notifyListeners();
-        _logger.log('QUERY', '${key.id} → error: ${error.message}');
-        rethrow;
+
+        _logger.log(
+          'QUERY',
+          '${key.id} → error: ${error.message}',
+        );
+
+        throw error;
       }
     }
   }

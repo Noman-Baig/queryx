@@ -91,12 +91,15 @@ class Mutation<T, V, C> {
       return result;
     } catch (e, st) {
       final err = e is QueryError ? e : defaultErrorMapper(e, st);
+
       error = err;
       status = QueryStatus.error;
       listenable.notifyListeners();
+
       _options.onError?.call(err, variables, context);
       _options.onSettled?.call(null, err, variables, context);
-      rethrow;
+
+      throw err;
     }
   }
 

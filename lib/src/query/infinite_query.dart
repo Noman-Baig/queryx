@@ -102,11 +102,15 @@ class InfiniteQuery<T, P> {
         break;
       } catch (e, st) {
         final err = e is QueryError ? e : defaultErrorMapper(e, st);
+
         if (_retryPolicy.shouldRetry(err, attempt)) {
-          await Future<void>.delayed(_retryPolicy.delayFor(attempt));
+          await Future<void>.delayed(
+            _retryPolicy.delayFor(attempt),
+          );
           attempt++;
           continue;
         }
+
         error = err;
         break;
       }
