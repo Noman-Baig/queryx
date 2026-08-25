@@ -3,7 +3,7 @@ description: >
   A fast, lightweight, production-grade server-state engine for Flutter/Dart.
   Query, mutation, caching, deduplication, retry, pagination and offline sync —
   state-management agnostic. Works with Riverpod, GetX, Bloc, Provider, or plain setState.
-version: 0.1.1
+version: 0.1.0
 license: MIT
 homepage: https://github.com/Noman-Baig
 repository: https://github.com/Noman-Baig/queryx
