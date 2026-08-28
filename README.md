@@ -1,3 +1,12 @@
+<p align="center">
+  <img
+    src="https://raw.githubusercontent.com/Noman-Baig/queryx_dio/main/assets/logo.jpg"
+    alt="QueryX"
+    width="220"
+    style="border-radius: 24px;"
+  />
+</p>
+
 **QueryX**
 
 It is a lightweight, framework-agnostic server-state engine built for Dart & Flutter applications.
