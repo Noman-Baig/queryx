@@ -7,15 +7,39 @@
   />
 </p>
 
-**QueryX**
+<h1 align="center">QueryX</h1>
 
-It is a lightweight, framework-agnostic server-state engine built for Dart & Flutter applications.
+<p align="center">
+  A lightweight, framework-agnostic server-state engine for Dart & Flutter.
+</p>
 
-queryx is not another state-management framework, and not "a Dio wrapper with
-100 features." It solves one problem well: **server state + API lifecycle +
-caching + synchronization.** You keep whatever you already use for UI state —
-Riverpod, GetX, Bloc, Provider, `ChangeNotifier`, or plain `setState`.
+<p align="center">
+  <a href="https://pub.dev/packages/queryx">
+    <img src="https://img.shields.io/pub/v/queryx.svg" alt="pub.dev version"/>
+  </a>
+  <a href="https://pub.dev/packages/queryx/score">
+    <img src="https://img.shields.io/pub/likes/queryx.svg" alt="pub.dev likes"/>
+  </a>
+  <a href="https://github.com/Noman-Baig/queryx/actions">
+    <img src="https://img.shields.io/github/actions/workflow/status/Noman-Baig/queryx/test.yml" alt="CI"/>
+  </a>
+  <img src="https://img.shields.io/badge/Dart-Framework--agnostic-blue" alt="Framework agnostic"/>
+</p>
 
+<p align="center">
+  Server state for QueryX — caching, request deduplication, retries,
+  optimistic mutations, pagination, synchronization, and more.
+</p>
+
+---
+
+QueryX is a lightweight, framework-agnostic server-state engine built for Dart & Flutter applications.
+
+It is not another state-management framework, and not a "Dio wrapper with 100 features." It solves one problem well: **server state + API lifecycle + caching + synchronization.**
+
+You keep whatever you already use for UI state — Riverpod, GetX, Bloc, Provider, `ChangeNotifier`, or plain `setState`.
+
+---
 ```dart
 final users = client.query(
   QueryKey(['users']),

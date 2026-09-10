@@ -1,7 +1,78 @@
+import 'dart:async';
+
 import 'package:queryx/queryx.dart';
 import 'package:test/test.dart';
 
 void main() {
+  test(
+      'older failed optimistic mutation does not rollback newer successful mutation',
+      () async {
+    final client = QueryClient();
+
+    final key = QueryKey(['counter']);
+
+    client.setQueryData<int>(key, 0);
+
+    final firstStarted = Completer<void>();
+    final secondStarted = Completer<void>();
+
+    final firstFail = Completer<void>();
+    final secondSuccess = Completer<void>();
+
+    final mutation = client.mutation<int, int, int>(
+      (value) async {
+        if (value == 1) {
+          firstStarted.complete();
+          await firstFail.future;
+          throw QueryError.network('first failed');
+        }
+
+        secondStarted.complete();
+        await secondSuccess.future;
+        return 2;
+      },
+      options: MutationOptions<int, int, int>(
+        onMutate: (value) async {
+          final snapshot = client.getQueryData<int>(key)!;
+
+          client.setQueryData<int>(key, value);
+
+          return snapshot;
+        },
+        onSuccess: (data, _, __) {
+          client.setQueryData<int>(key, data);
+        },
+        onError: (_, __, snapshot) {
+          client.setQueryData<int>(key, snapshot!);
+        },
+      ),
+    );
+
+    final first = mutation.mutateAsync(1);
+
+    await firstStarted.future;
+
+    final second = mutation.mutateAsync(2);
+
+    await secondStarted.future;
+
+    // Second optimistic value.
+    expect(client.getQueryData<int>(key), 2);
+
+    // Second mutation succeeds first.
+    secondSuccess.complete();
+    await second;
+
+    expect(client.getQueryData<int>(key), 2);
+
+    // First mutation fails afterwards.
+    firstFail.complete();
+
+    await expectLater(first, throwsA(isA<QueryError>()));
+
+    // This is the important assertion.
+    expect(client.getQueryData<int>(key), 2);
+  });
   group('QueryClient', () {
     test('concurrent observers for the same key deduplicate to one fetch',
         () async {
