@@ -1,7 +1,7 @@
 name: queryx
 description: >
   Fast, lightweight server-state engine for Dart & Flutter — caching, deduplication, retry, pagination, mutations, and offline sync. Works with any state manager.
-version: 0.1.1
+version: 0.1.2
 license: MIT
 homepage: https://github.com/Noman-Baig
 repository: https://github.com/Noman-Baig/queryx
